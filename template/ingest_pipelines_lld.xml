@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>5.0</version>
+    <date>2022-03-22T12:08:55Z</date>
+    <groups>
+        <group>
+            <name>UM DOIT/Metrics/Templates/Elastic</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <template>Elastic Ingest Pipelines LLD</template>
+            <name>Elastic Ingest Pipelines LLD</name>
+            <groups>
+                <group>
+                    <name>UM DOIT/Metrics/Templates/Elastic</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>Elastic</name>
+                </application>
+            </applications>
+            <discovery_rules>
+                <discovery_rule>
+                    <name>Ingest Pipelines</name>
+                    <type>TRAP</type>
+                    <key>es_ingest_pipelines</key>
+                    <delay>0</delay>
+                    <lifetime>10d</lifetime>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>Ingest events {#PIPELINE} per second</name>
+                            <type>TRAP</type>
+                            <key>es_ingest_pipe_count[{#PIPELINE}]</key>
+                            <delay>0</delay>
+                            <value_type>FLOAT</value_type>
+                            <applications>
+                                <application>
+                                    <name>Elastic</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>CHANGE_PER_SECOND</type>
+                                    <params/>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                    </item_prototypes>
+                </discovery_rule>
+            </discovery_rules>
+            <macros>
+                <macro>
+                    <macro>{$QUEUE_PATH}</macro>
+                    <value>/home/logstash/queue</value>
+                </macro>
+            </macros>
+        </template>
+    </templates>
+</zabbix_export>
